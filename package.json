@@ -1,0 +1,40 @@
+{
+	"name": "docpad-plugin-tumblr",
+	"version": "2.0.0",
+	"description": "Imports tumblr posts into the DocPad Database",
+	"homepage": "http://docpad.org/plugin/tumblr",
+	"keywords": [
+		"docpad",
+		"docpad-plugin", "docpad-importer",
+		"tumblr", "blog"
+	],
+	"author": "Bevry Pty Ltd <us@bevry.me> (http://bevry.me)",
+	"maintainers": [
+		"Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
+	],
+	"contributors": [
+		"Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
+	],
+	"bugs": {
+		"url": "http://docpad.org/plugin/tumblr/issues"
+	},
+	"repository" : {
+		"type": "git",
+		"url": "https://github.com/docpad/docpad-plugin-tumblr.git"
+	},
+	"engines" : {
+		"node": ">=0.4",
+		"docpad": ">=6.21 <7"
+	},
+	"dependencies": {
+		"bal-util": "~1.6.1",
+		"feedr": "~2.4.0"
+	},
+	"devDependencies": {
+		"coffee-script": "~1.4.0"
+	},
+	"main": "./out/tumblr.plugin.js",
+	"scripts": {
+		"test": "node ./out/tumblr.test.js"
+	}
+}

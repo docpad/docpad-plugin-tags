@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title>Test Page</title>
+</head>
+<body>
+
+	<pre><%- JSON.stringify @getFilesAtPath('tumblr').toJSON() %></pre>
+
+</body>
+</html>
