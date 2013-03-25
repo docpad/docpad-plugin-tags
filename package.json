@@ -27,11 +27,11 @@
 		"docpad": ">=6.21 <7"
 	},
 	"dependencies": {
-		"bal-util": "~1.6.1",
+		"bal-util": "~1.16.13",
 		"feedr": "~2.4.0"
 	},
 	"devDependencies": {
-		"coffee-script": "~1.4.0"
+		"coffee-script": "~1.6.2"
 	},
 	"main": "./out/tumblr.plugin.js",
 	"scripts": {

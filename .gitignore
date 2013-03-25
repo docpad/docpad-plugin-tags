@@ -16,4 +16,6 @@ npm-debug.log
 
 test/out/
 test/render-out/
+test/src/documents/tumblr/
+test/.env
 out/
