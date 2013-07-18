@@ -1,5 +1,6 @@
 # Prepare
-balUtil = require('bal-util')
+{TaskGroup} = require('taskgroup')
+eachr = require('eachr')
 feedr = new (require('feedr').Feedr)
 
 # Export
@@ -13,7 +14,6 @@ module.exports = (BasePlugin) ->
 		config:
 			blog: process.env.TUMBLR_BLOG
 			apiKey: process.env.TUMBLR_API_KEY
-			writeSource: true
 			relativePath: "tumblr"
 			extension: ".html"
 
@@ -21,7 +21,7 @@ module.exports = (BasePlugin) ->
 		# next(err,data), data = {tumblrPosts,tumblrTags}
 		fetchTumblrData: (opts={},next) ->
 			# Prepare
-			config = @config
+			config = @getConfig()
 
 			# Check
 			if !config.blog or !config.apiKey
@@ -29,7 +29,11 @@ module.exports = (BasePlugin) ->
 				return next(err)
 
 			# Prepare
-			tumblrUrl = "http://api.tumblr.com/v2/blog/#{config.blog}/posts?api_key=#{escape config.apiKey}"
+			{blog,apiKey} = config
+			blog = blog+'.tumblr.com'  if blog.indexOf('.') is -1
+
+			# Prepare
+			tumblrUrl = "http://api.tumblr.com/v2/blog/#{blog}/posts?api_key=#{escape apiKey}"
 			tumblrPosts = []
 			tumblrTags = []
 
@@ -63,7 +67,7 @@ module.exports = (BasePlugin) ->
 
 					# Done
 					data = {tumblrPosts,tumblrTags}
-					return next(null,data)
+					return next(null, data)
 
 			# Chain
 			@
@@ -72,16 +76,14 @@ module.exports = (BasePlugin) ->
 		# =============================
 		# Events
 
-		# Generate Before
+		# Populate Collections
 		# Import Tumblr Data into the Database
-		generateBefore: (opts,next) ->
+		populateCollections: (opts,next) ->
 			# Prepare
+			config = @getConfig()
 			docpad = @docpad
-			config = @config
-			tasks = new balUtil.Group(next)
-
-			# Skip if we are doing a differential generate
-			return next()  if opts.reset is false
+			database = docpad.getDatabase()
+			docpadConfig = docpad.getConfig()
 
 			# Log
 			docpad.log('info', "Importing Tumblr...")
@@ -92,43 +94,42 @@ module.exports = (BasePlugin) ->
 				return next(err)  if err
 
 				# Prepare
+				tasks = new TaskGroup().once('complete', next)
 				{tumblrPosts,tumblrTags} = data
 
 				# Inject our posts
-				balUtil.each tumblrPosts, (tumblrPost) ->  tasks.push (complete) ->
+				eachr tumblrPosts, (tumblrPost) ->  tasks.addTask (complete) ->
 					# Prepare
-					date = new Date(tumblrPost.date)
-					dateTime = date.getTime()
-					dateString = date.toString()
-					filename = "#{tumblrPost.id}#{config.extension}"
-					fileRelativePath = "#{config.relativePath}/#{tumblrPost.type}/#{filename}"
-					fileFullPath = docpad.getConfig().documentsPaths[0]+"/#{fileRelativePath}"
+					opts = {}
 
-					# Merge
-					attributes =
-						meta: tumblrPost
-						data: tumblrPost.body or 'blah'
-						date: date
-						filename: filename
-						relativePath: fileRelativePath
-						fullPath: fileFullPath
+					# Meta
+					opts.meta =
+						tumblr: tumblrPost
+						title: tumblrPost.title or null
+						date: new Date(tumblrPost.date)
+						relativePath: "#{config.relativePath}/#{tumblrPost.type}/#{tumblrPost.id}#{config.extension}"
+
+					# Data
+					opts.data = tumblrPost.body or ''  # TODO: should we need the or ''
+					delete tumblrPost.body
 
 					# Create document from attributes
-					document = docpad.ensureDocument(attributes)
+					document = docpad.createDocument(null, opts)
 
-					# Load the document
-					docpad.loadDocument document, (err) ->
-						# Check
-						return complete(err)  if err
+					# Add it to the database
+					database.add(document)
 
-						# Write source
-						if config.writeSource
-							return document.writeSource(complete)
-						else
-							return complete()
+					# Complete
+					return complete()
 
 				# Execute tasks
 				tasks.run()
 
 			# Chain
 			@
+
+	###
+	writeFiles: (opts,next) ->
+		if @getConfig().writeSourcEfiles
+			.writeSource()
+	###

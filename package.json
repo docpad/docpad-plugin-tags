@@ -1,7 +1,7 @@
 {
 	"name": "docpad-plugin-tumblr",
 	"version": "2.0.0",
-	"description": "Imports tumblr posts into the DocPad Database",
+	"description": "Import your Tumblr content directly into your DocPad database",
 	"homepage": "http://docpad.org/plugin/tumblr",
 	"keywords": [
 		"docpad",
@@ -27,11 +27,13 @@
 		"docpad": ">=6.21 <7"
 	},
 	"dependencies": {
-		"bal-util": "~1.16.13",
-		"feedr": "~2.4.0"
+		"eachr": "~2.0.2",
+		"taskgroup": "~3.1.2",
+		"feedr": "~2.5.0"
 	},
 	"devDependencies": {
-		"coffee-script": "~1.6.2"
+		"coffee-script": "~1.6.2",
+		"docpad": ">=6.37 <7"
 	},
 	"main": "./out/tumblr.plugin.js",
 	"scripts": {
