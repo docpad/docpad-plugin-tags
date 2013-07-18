@@ -1,0 +1,13 @@
+---
+title: "Tag Listing"
+layout: default
+---
+
+<h2>Tags:</h2>
+<ul>
+	<% for file in @getFilesAtPath('tags/').toJSON(): %>
+		<li>
+			<a href="<%= file.url %>"><%= file.title %></a>
+		</li>
+	<% end %>
+</ul>

@@ -1,12 +1,12 @@
 {
-	"name": "docpad-plugin-tumblr",
+	"name": "docpad-plugin-tags",
 	"version": "2.0.0",
-	"description": "Import your Tumblr content directly into your DocPad database",
-	"homepage": "http://docpad.org/plugin/tumblr",
+	"description": "Create tag pages within DocPad",
+	"homepage": "http://docpad.org/plugin/tags",
 	"keywords": [
 		"docpad",
 		"docpad-plugin", "docpad-importer",
-		"tumblr", "blog"
+		"tags", "blog"
 	],
 	"author": "Bevry Pty Ltd <us@bevry.me> (http://bevry.me)",
 	"maintainers": [
@@ -16,27 +16,27 @@
 		"Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
 	],
 	"bugs": {
-		"url": "http://docpad.org/plugin/tumblr/issues"
+		"url": "http://docpad.org/plugin/tags/issues"
 	},
 	"repository" : {
 		"type": "git",
-		"url": "https://github.com/docpad/docpad-plugin-tumblr.git"
+		"url": "https://github.com/docpad/docpad-plugin-tags.git"
 	},
 	"engines" : {
-		"node": ">=0.4",
-		"docpad": ">=6.21 <7"
+		"node": ">=0.4"
 	},
 	"dependencies": {
-		"eachr": "~2.0.2",
-		"taskgroup": "~3.1.2",
-		"feedr": "~2.5.0"
+		"taskgroup": "~3.1.2"
+	},
+	"peerDependencies": {
+		"docpad": ">=6.46 <7"
 	},
 	"devDependencies": {
 		"coffee-script": "~1.6.2",
-		"docpad": ">=6.37 <7"
+		"docpad": ">=6.46 <7"
 	},
-	"main": "./out/tumblr.plugin.js",
+	"main": "./out/tags.plugin.js",
 	"scripts": {
-		"test": "node ./out/tumblr.test.js"
+		"test": "node ./out/tags.test.js"
 	}
 }
