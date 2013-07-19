@@ -26,6 +26,20 @@ module.exports = (BasePlugin) ->
 			docpadConfig = docpad.getConfig()
 			database = docpad.getDatabase()
 
+			# Log
+			docpad.log('info', "Creating tag pages...")
+
+			# Prepare the tasks
+			tasks = new TaskGroup().setConfig(concurrency:0).once 'complete', (err) ->
+				# Check
+				return next(err)  if err
+
+				# Log
+				docpad.log('info', "Created #{tags.length} tag pages...")
+
+				# Complete
+				return next()
+
 			# Prepare tag listing
 			tags = {}
 
@@ -41,9 +55,6 @@ module.exports = (BasePlugin) ->
 
 			# Flatten the tags
 			tags = Object.keys(tags)
-
-			# Prepare the tasks
-			tasks = new TaskGroup().setConfig(concurrency:0).once('complete', next)
 
 			# Inject the tag documents
 			tags.forEach (tag) ->  tasks.addTask (complete) ->
