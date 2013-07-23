@@ -10,8 +10,8 @@ module.exports = (BasePlugin) ->
 
 		# Config
 		config:
-			relativePath: "tags"
-			extension: ".html"
+			relativeDirPath: "tags"
+			extension: ".json"
 			injectDocumentHelper: null
 
 		# =============================
@@ -60,10 +60,11 @@ module.exports = (BasePlugin) ->
 			tags.forEach (tag) ->  tasks.addTask (complete) ->
 				# Prepare
 				documentAttributes =
+					data: JSON.stringify({tag}, null, '\t')
 					meta:
 						title: "Tag: #{tag}"
 						tag: tag
-						relativePath: "#{config.relativePath}/#{tag}#{config.extension}"
+						relativePath: "#{config.relativeDirPath}/#{tag}#{config.extension}"
 
 				# Create document from attributes
 				document = docpad.createDocument(documentAttributes)
