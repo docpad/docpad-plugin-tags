@@ -1,8 +1,8 @@
 module.exports =
 	plugins:
 		tags:
-			helper: (document) ->
-				document.setMetaDefaults(
+			injectDocumentHelper: (document) ->
+				document.setMeta(
 					layout: 'tag'
 				)
 				###

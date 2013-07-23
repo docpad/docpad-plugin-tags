@@ -12,7 +12,7 @@ module.exports = (BasePlugin) ->
 		config:
 			relativePath: "tags"
 			extension: ".html"
-			helper: null
+			injectDocumentHelper: null
 
 		# =============================
 		# Events
@@ -59,22 +59,17 @@ module.exports = (BasePlugin) ->
 			# Inject the tag documents
 			tags.forEach (tag) ->  tasks.addTask (complete) ->
 				# Prepare
-				documentOpts = {}
-
-				# Meta
-				documentOpts.meta =
-					title: "Tag: #{tag}"
-					tag: tag
-					relativePath: "#{config.relativePath}/#{tag}#{config.extension}"
-
-				# Data
-				documentOpts.data = ''
+				documentAttributes =
+					meta:
+						title: "Tag: #{tag}"
+						tag: tag
+						relativePath: "#{config.relativePath}/#{tag}#{config.extension}"
 
 				# Create document from attributes
-				document = docpad.createDocument(null, documentOpts)
+				document = docpad.createDocument(documentAttributes)
 
 				# Inject helper
-				config.helper?.call(me, document)
+				config.injectDocumentHelper?.call(me, document)
 
 				# Load the document
 				document.load (err) ->

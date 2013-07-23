@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<h2>Pages:</h2>
+<h2>Pages for tag <%= @document.tag %>:</h2>
 <ul>
 	<% for file in @getFiles(tags: $has: @document.tag).toJSON(): %>
 		<li>
