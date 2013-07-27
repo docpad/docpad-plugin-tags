@@ -27,11 +27,13 @@ module.exports = (BasePlugin) ->
 			docpad = @docpad
 			database = docpad.getDatabase()
 
-			# Create the collection
-			tagsCollection = database.findAllLive({relativeDirPath: $startsWith: config.relativeDirPath}, [title:1])
+			# Check
+			if config.collectionName
+				# Create the collection
+				tagsCollection = database.findAllLive({relativeDirPath: $startsWith: config.relativeDirPath}, [title:1])
 
-			# Set the collection
-			docpad.setCollection(config.collectionName, tagsCollection)
+				# Set the collection
+				docpad.setCollection(config.collectionName, tagsCollection)
 
 			# Chain
 			@
