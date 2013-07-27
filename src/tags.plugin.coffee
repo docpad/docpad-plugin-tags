@@ -13,9 +13,28 @@ module.exports = (BasePlugin) ->
 			relativeDirPath: "tags"
 			extension: ".json"
 			injectDocumentHelper: null
+			collectionName: "tags"
+			findCollectionName: "database"
 
 		# =============================
 		# Events
+
+		# Extend Collections
+		# Create our live collection for our tags
+		extendCollections: ->
+			# Prepare
+			config = @getConfig()
+			docpad = @docpad
+			database = docpad.getDatabase()
+
+			# Create the collection
+			tagsCollection = database.findAllLive({relativeDirPath: $startsWith: config.relativeDirPath}, [title:1])
+
+			# Set the collection
+			docpad.setCollection(config.collectionName, tagsCollection)
+
+			# Chain
+			@
 
 		# Create tag pages
 		parseAfter: (opts,next) ->
@@ -44,7 +63,7 @@ module.exports = (BasePlugin) ->
 			tags = {}
 
 			# Cycle through documents that have tags
-			docpad.getCollection('html').forEach (document) ->
+			docpad.getCollection(config.findCollectionName).forEach (document) ->
 				# Prepare
 				documentTags = document.get('tags') or []
 				return  if documentTags.length is 0

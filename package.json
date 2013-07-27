@@ -1,6 +1,6 @@
 {
 	"name": "docpad-plugin-tags",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Create tag pages within DocPad",
 	"homepage": "http://docpad.org/plugin/tags",
 	"keywords": [
