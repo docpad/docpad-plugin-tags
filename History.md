@@ -1,5 +1,8 @@
 # History
 
+- v2.0.3 July 28, 2013
+	- Fixed/Added support for special characters in tag names
+
 - v2.0.2 July 27, 2013
 	- Can now disable the tags collection by setting `collectionName` to `false`
 

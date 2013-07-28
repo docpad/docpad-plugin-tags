@@ -80,12 +80,15 @@ module.exports = (BasePlugin) ->
 			# Inject the tag documents
 			tags.forEach (tag) ->  tasks.addTask (complete) ->
 				# Prepare
+				tagName = tag.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
 				documentAttributes =
 					data: JSON.stringify({tag}, null, '\t')
 					meta:
 						title: "Tag: #{tag}"
 						tag: tag
-						relativePath: "#{config.relativeDirPath}/#{tag}#{config.extension}"
+						tagName: tag
+						url: "#{config.relativeDirPath}/#{tag}#{config.extension}"
+						relativePath: "#{config.relativeDirPath}/#{tagName}#{config.extension}"
 
 				# Create document from attributes
 				document = docpad.createDocument(documentAttributes)
