@@ -24,9 +24,9 @@ The default directory for where the imported documents will go inside is the `ta
 
 The default extension for imported documents is `.json`. You can customise this with the `extension` plugin configuration option.
 
-The default content for the imported documents is the serialised tumblr data as JSON data. You can can customise this with the `injectDocumentHelper` plugin configuration option which is a function that takes in a single [Document Model](https://github.com/bevry/docpad/blob/master/src/lib/models/document.coffee).
+The default content for the imported documents is the serialised tag data as JSON data. You can can customise this with the `injectDocumentHelper` plugin configuration option which is a function that takes in a single [Document Model](https://github.com/bevry/docpad/blob/master/src/lib/models/document.coffee).
 
-If you would like to render a partial for the tumblr data type, add a layout, and change the extension, you can this with the following plugin configuration:
+If you would like to render a partial for the imported document, add a layout, and change the extension, you can this with the following plugin configuration:
 
 ``` coffee
 extension: '.html.eco'
@@ -39,12 +39,12 @@ injectDocumentHelper: (document) ->
 	)
 ```
 
-You can find a great example of this customisation within the [syte skeleton](https://github.com/docpad/syte.docpad) which combines the tumblr plugin with the [partials plugin](http://docpad.org/plugin/partials) as well as the [tumblr plugin](http://docpad.org/plugin/tumblr) and [paged plugin](http://docpad.org/plugin/paged).
+You can find a great example of this customisation within the [syte skeleton](https://github.com/docpad/syte.docpad) which combines the tags plugin with the [partials plugin](http://docpad.org/plugin/partials) as well as the [tumblr plugin](http://docpad.org/plugin/tumblr) and [paged plugin](http://docpad.org/plugin/paged).
 
 
 ### Creating a File Listing
 
-As imported documents are just like normal documents, you can also list them just as you would other documents. Here is an example of a `index.html.eco` file that would output the titles and links to all the imported tumblr documents:
+As imported documents are just like normal documents, you can also list them just as you would other documents. Here is an example of a `index.html.eco` file that would output the titles and links to all the imported tag documents:
 
 ``` erb
 <h2>Tags:</h2>
