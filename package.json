@@ -1,6 +1,6 @@
 {
 	"name": "docpad-plugin-tags",
-	"version": "2.0.3",
+	"version": "2.0.4",
 	"description": "Create tag pages within DocPad",
 	"homepage": "http://docpad.org/plugin/tags",
 	"keywords": [
@@ -26,7 +26,7 @@
 		"node": ">=0.4"
 	},
 	"dependencies": {
-		"taskgroup": "~3.1.2"
+		"taskgroup": "~3.2.3"
 	},
 	"peerDependencies": {
 		"docpad": ">=6.46 <7"

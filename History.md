@@ -1,5 +1,8 @@
 # History
 
+- v2.0.4 October 2, 2013
+	- Updated dependencies
+
 - v2.0.3 July 28, 2013
 	- Fixed/Added support for special characters in tag names
 
