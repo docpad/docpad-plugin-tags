@@ -1,42 +1,43 @@
 {
-	"name": "docpad-plugin-tags",
-	"version": "2.0.4",
-	"description": "Create tag pages within DocPad",
-	"homepage": "http://docpad.org/plugin/tags",
-	"keywords": [
-		"docpad",
-		"docpad-plugin", "docpad-importer",
-		"tags", "blog"
-	],
-	"author": "Bevry Pty Ltd <us@bevry.me> (http://bevry.me)",
-	"maintainers": [
-		"Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
-	],
-	"contributors": [
-		"Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
-	],
-	"bugs": {
-		"url": "http://docpad.org/plugin/tags/issues"
-	},
-	"repository" : {
-		"type": "git",
-		"url": "https://github.com/docpad/docpad-plugin-tags.git"
-	},
-	"engines" : {
-		"node": ">=0.4"
-	},
-	"dependencies": {
-		"taskgroup": "~3.2.3"
-	},
-	"peerDependencies": {
-		"docpad": ">=6.46 <7"
-	},
-	"devDependencies": {
-		"coffee-script": "~1.6.2",
-		"docpad": ">=6.46 <7"
-	},
-	"main": "./out/tags.plugin.js",
-	"scripts": {
-		"test": "node ./out/tags.test.js"
-	}
+  "name": "docpad-plugin-tags",
+  "version": "2.0.4",
+  "description": "Create tag pages within DocPad",
+  "homepage": "http://docpad.org/plugin/tags",
+  "keywords": [
+    "docpad",
+    "docpad-plugin",
+    "docpad-importer",
+    "tags",
+    "blog"
+  ],
+  "author": "Bevry Pty Ltd <us@bevry.me> (http://bevry.me)",
+  "maintainers": [
+    "Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
+  ],
+  "contributors": [
+    "Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
+  ],
+  "bugs": {
+    "url": "http://docpad.org/plugin/tags/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/docpad/docpad-plugin-tags.git"
+  },
+  "engines": {
+    "node": ">=0.4"
+  },
+  "dependencies": {
+    "taskgroup": "~3.2.3"
+  },
+  "peerDependencies": {
+    "docpad": ">=6.46 <7"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.6.2"
+  },
+  "main": "./out/tags.plugin.js",
+  "scripts": {
+    "test": "node ./out/tags.test.js"
+  }
 }
