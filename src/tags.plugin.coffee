@@ -15,6 +15,7 @@ module.exports = (BasePlugin) ->
 			injectDocumentHelper: null
 			collectionName: "tags"
 			findCollectionName: "database"
+			logLevel: 'info'
 
 		# Setup tags object
 		constructor: ->
@@ -100,7 +101,7 @@ module.exports = (BasePlugin) ->
 				docpad.addModel?(document) or docpad.getDatabase().add(document)
 
 				# Log
-				docpad.log('debug', "Imported tag: #{document.getFilePath()}")
+				docpad.log(config.logLevel, "Created tag page for #{tag} at #{document.getFilePath()}")
 
 				# Complete
 				return next()

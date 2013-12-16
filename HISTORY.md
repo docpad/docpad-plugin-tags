@@ -1,5 +1,8 @@
 # History
 
+- v2.0.7 December 16, 2013
+	- Tell us what tag pages have been added
+
 - v2.0.6 December 16, 2013
 	- Updated to use the `DocPad::addModel` call, rather than adding directly to the database
 
