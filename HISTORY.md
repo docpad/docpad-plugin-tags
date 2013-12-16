@@ -1,5 +1,9 @@
 # History
 
+- v2.0.5 December 16, 2013
+	- Tag documents are now injected as tags are discovered
+	- Working with the latest DocPad v6.58, compatible with older versions too
+
 - v2.0.4 October 2, 2013
 	- Updated dependencies
 

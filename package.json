@@ -1,8 +1,18 @@
 {
   "name": "docpad-plugin-tags",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Create tag pages within DocPad",
   "homepage": "http://docpad.org/plugin/tags",
+  "license": {
+    "type": "MIT"
+  },
+  "badges": {
+    "travis": true,
+    "npm": true,
+    "gittip": "docpad",
+    "flattr": "344188/balupton-on-Flattr",
+    "paypal": "QB8GQPZAH84N6"
+  },
   "keywords": [
     "docpad",
     "docpad-plugin",
@@ -10,7 +20,7 @@
     "tags",
     "blog"
   ],
-  "author": "Bevry Pty Ltd <us@bevry.me> (http://bevry.me)",
+  "author": "2013+ Bevry Pty Ltd <us@bevry.me> (http://bevry.me)",
   "maintainers": [
     "Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
   ],
@@ -27,14 +37,14 @@
   "engines": {
     "node": ">=0.4"
   },
-  "dependencies": {
-    "taskgroup": "~3.2.3"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "docpad": ">=6.46 <7"
   },
   "devDependencies": {
-    "coffee-script": "~1.6.2"
+    "docpad": ">=6.46 <7",
+    "coffee-script": "~1.6.2",
+    "projectz": "~0.3.0"
   },
   "main": "./out/tags.plugin.js",
   "scripts": {

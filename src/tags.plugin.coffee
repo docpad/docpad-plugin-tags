@@ -1,12 +1,12 @@
-# Prepare
-{TaskGroup} = require('taskgroup')
-
 # Export
 module.exports = (BasePlugin) ->
 	# Define
 	class TagsPlugin extends BasePlugin
 		# Name
 		name: 'tags'
+
+		# Tags
+		tags: null
 
 		# Config
 		config:
@@ -16,6 +16,12 @@ module.exports = (BasePlugin) ->
 			collectionName: "tags"
 			findCollectionName: "database"
 
+		# Setup tags object
+		constructor: ->
+			@tags ?= {}
+			super
+
+
 		# =============================
 		# Events
 
@@ -23,99 +29,80 @@ module.exports = (BasePlugin) ->
 		# Create our live collection for our tags
 		extendCollections: ->
 			# Prepare
+			plugin = @
 			config = @getConfig()
 			docpad = @docpad
 			database = docpad.getDatabase()
 
-			# Check
-			if config.collectionName
-				# Create the collection
-				tagsCollection = database.findAllLive({relativeDirPath: $startsWith: config.relativeDirPath}, [title:1])
+			# Create the collections for the tags
+			docpad.setCollection config.collectionName, database.findAllLive({
+				relativeDirPath: $startsWith: config.relativeDirPath
+			}, [title:1])
 
-				# Set the collection
-				docpad.setCollection(config.collectionName, tagsCollection)
+			# Listen for tags
+			docpad.getCollection(config.findCollectionName).on 'add change:tags', (model) ->
+				# Prepare
+				tags = model.get('tags') or []
+				tags = tags.split(/[\s,]+/)  if typeof tags is 'string'
+
+				# Check
+				return  if tags.length is 0
+
+				# Add the document tags to the index
+				for tag in tags
+					plugin.tags[tag] ?= plugin.createTagDocument tag, (err) ->
+						docpad.error(err)  if err
+
+				# Complete
+				return true
 
 			# Chain
 			@
 
-		# Create tag pages
-		parseAfter: (opts,next) ->
+		# Create Tag Document
+		createTagDocument: (tag, next) ->
 			# Prepare
-			me = @
+			plugin = @
 			config = @getConfig()
 			docpad = @docpad
-			docpadConfig = docpad.getConfig()
 			database = docpad.getDatabase()
 
-			# Log
-			docpad.log('info', "Creating tag pages...")
+			# Fetch
+			document = docpad.getFile({tag:tag})
 
-			# Prepare the tasks
-			tasks = new TaskGroup().setConfig(concurrency:0).once 'complete', (err) ->
+			# Create
+			tagName = tag.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+			documentAttributes =
+				data: JSON.stringify({tag}, null, '\t')
+				meta:
+					mtime: new Date()
+					title: "Tag: #{tag}"
+					tag: tag
+					tagName: tag
+					relativePath: "#{config.relativeDirPath}/#{tagName}#{config.extension}"
+
+			# Existing document
+			if document?
+				document.set(documentAttributes)
+
+			# New Document
+			else
+				# Create document from opts
+				document = docpad.createDocument(documentAttributes)
+
+			# Inject helper
+			config.injectDocumentHelper?.call(plugin, document)
+
+			# Load the document
+			document.action 'load', (err) ->
 				# Check
 				return next(err)  if err
 
-				# Log
-				docpad.log('info', "Created #{tags.length} tag pages...")
+				# Add it to the database
+				database.add(document)
 
 				# Complete
 				return next()
 
-			# Prepare tag listing
-			tags = {}
-
-			# Cycle through documents that have tags
-			docpad.getCollection(config.findCollectionName).forEach (document) ->
-				# Prepare
-				documentTags = document.get('tags') or []
-				return  if documentTags.length is 0
-
-				# Add the document tags to the index
-				for documentTag in documentTags
-					tags[documentTag] = true
-
-			# Flatten the tags
-			tags = Object.keys(tags)
-
-			# Inject the tag documents
-			tags.forEach (tag) ->  tasks.addTask (complete) ->
-				# Prepare
-				tagName = tag.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
-				documentAttributes =
-					data: JSON.stringify({tag}, null, '\t')
-					meta:
-						title: "Tag: #{tag}"
-						tag: tag
-						tagName: tag
-						url: "#{config.relativeDirPath}/#{tag}#{config.extension}"
-						relativePath: "#{config.relativeDirPath}/#{tagName}#{config.extension}"
-
-				# Create document from attributes
-				document = docpad.createDocument(documentAttributes)
-
-				# Inject helper
-				config.injectDocumentHelper?.call(me, document)
-
-				# Load the document
-				document.load (err) ->
-					# Check
-					return complete(err)  if err
-
-					# Add it to the database
-					opts.collection?.add(document)
-					database.add(document)
-
-					# Complete
-					return complete()
-
-			# Run
-			tasks.run()
-
-			# Chain
-			@
-
-	###
-	writeFiles: (opts,next) ->
-		if @getConfig().writeSourcEfiles
-			.writeSource()
-	###
+			# Return the document
+			return document
