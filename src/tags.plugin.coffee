@@ -32,10 +32,9 @@ module.exports = (BasePlugin) ->
 			plugin = @
 			config = @getConfig()
 			docpad = @docpad
-			database = docpad.getDatabase()
 
 			# Create the collections for the tags
-			docpad.setCollection config.collectionName, database.findAllLive({
+			docpad.setCollection config.collectionName, docpad.getDatabase().findAllLive({
 				relativeDirPath: $startsWith: config.relativeDirPath
 			}, [title:1])
 
@@ -65,7 +64,6 @@ module.exports = (BasePlugin) ->
 			plugin = @
 			config = @getConfig()
 			docpad = @docpad
-			database = docpad.getDatabase()
 
 			# Fetch
 			document = docpad.getFile({tag:tag})
@@ -98,8 +96,11 @@ module.exports = (BasePlugin) ->
 				# Check
 				return next(err)  if err
 
-				# Add it to the database
-				database.add(document)
+				# Add it to the database (with b/c compat)
+				docpad.addModel?(document) or docpad.getDatabase().add(document)
+
+				# Log
+				docpad.log('debug', "Imported tag: #{document.getFilePath()}")
 
 				# Complete
 				return next()

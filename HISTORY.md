@@ -1,8 +1,11 @@
 # History
 
+- v2.0.6 December 16, 2013
+	- Updated to use the `DocPad::addModel` call, rather than adding directly to the database
+
 - v2.0.5 December 16, 2013
 	- Tag documents are now injected as tags are discovered
-	- Working with the latest DocPad v6.58, compatible with older versions too
+	- Working with the latest DocPad v6.58
 
 - v2.0.4 October 2, 2013
 	- Updated dependencies
