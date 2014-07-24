@@ -1,5 +1,6 @@
 # Export
 module.exports = (BasePlugin) ->
+	latinize = require('latinize')
 	# Define
 	class TagsPlugin extends BasePlugin
 		# Name
@@ -70,7 +71,7 @@ module.exports = (BasePlugin) ->
 			document = docpad.getFile({tag:tag})
 
 			# Create
-			tagName = tag.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+			tagName = latinize(tag).toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
 			documentAttributes =
 				data: JSON.stringify({tag}, null, '\t')
 				meta:
