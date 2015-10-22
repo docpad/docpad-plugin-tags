@@ -70,7 +70,7 @@ module.exports = (BasePlugin) ->
 			document = docpad.getFile({tag:tag})
 
 			# Create
-			tagName = tag.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+			tagName = tag.toLowerCase().replace(/[^\u00C0-\u1FFF\u2C00-\uD7FF\w\d]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
 			documentAttributes =
 				data: JSON.stringify({tag}, null, '\t')
 				meta:
