@@ -1,18 +1,27 @@
-# v1.3.14 February 6, 2014
-# https://github.com/bevry/base
+sudo: false
 language: node_js
-install: "npm install; ./node_modules/.bin/cake install"
-before_script: "./node_modules/.bin/cake compile"
-script: "npm test"
 node_js:
-  - "0.8"
-  - "0.10"
+- '0.8'
+- '0.10'
+- '0.12'
+- '4'
+- '6'
+- '7'
+matrix:
+  fast_finish: true
 cache:
   directories:
-    - node_modules
+  - "$HOME/.npm"
+  - "$HOME/.yarn-cache"
+install:
+- eval "$(curl -s https://raw.githubusercontent.com/balupton/awesome-travis/master/scripts/node-install.bash)"
+before_script:
+- eval "$(curl -s https://raw.githubusercontent.com/balupton/awesome-travis/master/scripts/node-verify.bash)"
+after_success:
+- eval "$(curl -s https://raw.githubusercontent.com/balupton/awesome-travis/master/scripts/node-publish.bash)"
 notifications:
-  irc:
-    - "irc.freenode.org#bevry-dev"
+  slack:
+    secure: B1k2NYOq1LPWHbdPnTkqjE1ZCqqudO6s+zVSL3kBAup0aCFX99ouHtmLJBCLESRt39pAwFjzR16t8ONnbKmbr79J0b9AWZcXhx+MUv16oQQK0ekiC6u8tqtxGR3YIhTnPm3nOGj7Pif7WJ0+0wJXRMlO16ErbRktw8QO6YQV+z8=
   email:
     recipients:
-      - travisci@bevry.me
+      secure: W6SweVEiReycKxPdNd1Q7Uuve7MgQhTIgaIwhcirD8l6jnk3Fi2aJryqI+zYiz5YgwqMhRoz3KpL2XV6A5cC2nv6PyZo5KIo3pef2skWWxTU870h4MzJYNuMAtBqK+XFf6EvbBvgM1Y3mjfnPS623n7bW5RsLbSjFTEdwPL2Um0=

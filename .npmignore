@@ -1,9 +1,17 @@
-# v1.3.10 December 10, 2013
+# 2017 April 3
 # https://github.com/bevry/base
 
 # Temp Files
-**/*.log
+yarn.lock
 **/.docpad.db
+**/out.*
+**/*.log
+**/*.cpuprofile
+**/*.heapsnapshot
+
+# Editor Files
+.c9/
+.vscode/
 
 # Build Files
 build/
@@ -11,15 +19,29 @@ components/
 bower_components/
 node_modules/
 
-# Development Files
-.travis*
-Cakefile
-Makefile
+# Private Files
+.env
+
+# Documentation Files
+docs/
+guides/
 BACKERS.md
 CONTRIBUTING.md
 HISTORY.md
-**/src/
-**/test/
+
+# Development Files
+web/
+**/example*
+**/test*
+.editorconfig
+.eslintrc*
+.jshintrc
+.jscrc
+coffeelint*
+.travis*
+nakefile*
+Cakefile
+Makefile
 
 # Other Package Definitions
 template.js
