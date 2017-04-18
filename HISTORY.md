@@ -1,5 +1,9 @@
 # History
 
+## v2.1.0 2017 April 18
+- Updated base files
+- Bumped minimum node version to >=0.12 due to [failed builds on earlier](https://travis-ci.org/docpad/docpad-plugin-tags/builds/223020764)
+
 ## v2.0.7 2013 December 16
 - Tell us what tag pages have been added
 
