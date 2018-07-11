@@ -5,9 +5,6 @@ module.exports = (BasePlugin) ->
 		# Name
 		name: 'tags'
 
-		# Tags
-		tags: null
-
 		# Config
 		config:
 			relativeDirPath: "tags"
@@ -16,12 +13,6 @@ module.exports = (BasePlugin) ->
 			collectionName: "tags"
 			findCollectionName: "database"
 			logLevel: 'info'
-
-		# Setup tags object
-		constructor: ->
-			@tags ?= {}
-			super
-
 
 		# =============================
 		# Events
@@ -33,6 +24,7 @@ module.exports = (BasePlugin) ->
 			plugin = @
 			config = @getConfig()
 			docpad = @docpad
+			plugin.tags ?= {}
 
 			# Create the collections for the tags
 			docpad.setCollection config.collectionName, docpad.getDatabase().findAllLive({
