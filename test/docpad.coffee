@@ -9,6 +9,6 @@ module.exports =
 ###
 					.set(
 						writeSource: true
-						fullPath: @docpad.getConfig().srcPath+'/documents/'+document.get('relativePath')
+						fullPath: @docpad.getPath('source')+'/documents/'+document.get('relativePath')
 					)
 ###
