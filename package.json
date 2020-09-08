@@ -1,7 +1,7 @@
 {
   "title": "Tags Plugin for DocPad",
   "name": "docpad-plugin-tags",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Create tag pages within DocPad",
   "homepage": "https://github.com/docpad/docpad-plugin-tags",
   "license": "MIT",
